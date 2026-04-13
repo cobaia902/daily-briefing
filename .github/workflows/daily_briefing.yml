@@ -1,0 +1,72 @@
+name: 일일 브리핑 자동 생성
+
+on:
+  schedule:
+    # 매일 오전 8시 KST (= UTC 23:00 전날)
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+
+jobs:
+  world-briefing:
+    name: 🌐 세계 혁신 브리핑
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install anthropic requests
+      - name: 실행
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          NOTION_API_KEY:     ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_WORLD_DB_ID }}
+        run: python briefing.py
+
+  design-briefing:
+    name: 🎨 UX·UI 디자인 브리핑
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install anthropic requests
+      - name: 실행
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          NOTION_API_KEY:     ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DESIGN_DB_ID }}
+        run: python design_briefing.py
+
+  news-briefing:
+    name: 📰 화제 뉴스 브리핑
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install anthropic requests
+      - name: 실행
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          NOTION_API_KEY:     ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_NEWS_DB_ID }}
+        run: python news_briefing.py
+
+  marketing-briefing:
+    name: 📣 마케팅 트렌드 브리핑
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install anthropic requests
+      - name: 실행
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          NOTION_API_KEY:     ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_MARKETING_DB_ID }}
+        run: python marketing_briefing.py
