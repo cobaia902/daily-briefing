@@ -1,12 +1,13 @@
 import anthropic
+import os
 import requests
 import json
 from datetime import datetime, timezone, timedelta
 
 # ── 설정 ────────────────────────────────────────────────────────────────────
-ANTHROPIC_API_KEY  = "YOUR_ANTHROPIC_API_KEY"
-NOTION_API_KEY     = "YOUR_NOTION_API_KEY"
-NOTION_DATABASE_ID = "YOUR_NOTION_DATABASE_ID"  # 마케팅 트렌드 전용 DB
+ANTHROPIC_API_KEY  = os.environ["ANTHROPIC_API_KEY"]
+NOTION_API_KEY     = os.environ["NOTION_API_KEY"]
+NOTION_DATABASE_ID = os.environ["NOTION_DATABASE_ID"]
 
 KST = timezone(timedelta(hours=9))
 # ────────────────────────────────────────────────────────────────────────────
